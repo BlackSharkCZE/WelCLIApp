@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+	<!--TODO Set Valid PersistenceUnitName. The Same as in the Configuration file ApplicationConfig.java -->
+	<persistence-unit name="JPA_PERSISTENCE_UNIT" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<properties>
+
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/demo_database" />
+			<property name="javax.persistence.jdbc.user" value="demo" />
+			<property name="javax.persistence.jdbc.password" value="demo" />
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+
+
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
+			<!--<property name="hibernate.hbm2ddl.auto" value="validate" />-->
+
+			<!-- Configuring Connection Pool -->
+			<property name="hibernate.c3p0.min_size" value="2" />
+			<property name="hibernate.c3p0.max_size" value="10" />
+			<property name="hibernate.c3p0.timeout" value="500" />
+			<property name="hibernate.c3p0.max_statements" value="50" />
+			<property name="hibernate.c3p0.idle_test_period" value="2000" />
+
+
+
+			<!-- https://blogs.oracle.com/arungupta/entry/jpa_2_1_schema_generation -->
+			<!--Specifies the action to be taken by the persistence provider with regard to the database artifacts	("none", "create", "drop-and-create", "drop") -->
+			<property name="javax.persistence.schema-generation.database.action" value="none"/>
+			<property name="javax.persistence.schema-generation-target" value="database"/>
+
+
+			<!-- Specifies whether the creation/dropping of database artifacts is to occur on the basis of the object/relational mapping metadata,
+			DDL script, or a combination of the two. "metadata", "script", "metadata-then-script", "script-then-metadata" -->
+			<property name="javax.persistence.schema-generation.create-source" value="none"/>
+			<property name="javax.persistence.schema-generation.drop-source" value="none"/>
+
+			<!-- Specifies locations from which DDL scripts are to be read.
+			Readers are pre-configured for the persistence provider. java.io.Reader (e.g. MyReader.class) or URL strings -->
+			<property name="javax.persistence.schema-generation.create-script-source" value="META-INF/database/create-tables.sql"/>
+			<property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/database/drop.tables.sql"/>
+
+			<!-- Specifies location of SQL bulk load script. java.io.Reader (e.g. MyReader.class) or URL string -->
+			<property name="javax.persistence.sql-load-script-source" value="META-INF/database/load.tables.sql"/>
+
+			<!-- Specifies whether the persistence provider is to create the database schema(s) in addition to creating database
+			objects such as tables, sequences, constraints, etc. "true", "false" -->
+			<property name="javax.persistence.schema-generation.create-database-schemas" value="true"/>
+
+
+			<!--If scripts are to be generated, controls target locations for writing of scripts.
+			Writers are pre-configured for the persistence provider. Need to be specified only if scripts are to be generated. java.io.Writer (e.g. MyWriter.class) or URL strings
+			-->
+			<!--<property name="javax.persistence.schema-generation.scripts.create-target" value="/tmp/bazaar-create-script.sql" />
+			<property name="javax.persistence.schema-generation.scripts.drop-target" value="/tmp/bazaar-drop-script.sql" />-->
+
+
+			<!-- Needed if scripts are to be generated and no connection to target database. Values are those obtained from JDBC DatabaseMetaData. -->
+			<property name="javax.persistence.database-product-name" value="PostgreSQL"/>
+			<property name="javax.persistence.database-major-version" value="9"/>
+			<property name="javax.persistence.database-minor-version" value="2"/>
+
+
+		</properties>
+
+	</persistence-unit>
+
+</persistence>
